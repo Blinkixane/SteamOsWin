@@ -1,0 +1,40 @@
+{
+  "processes": [
+    {
+      "id": "iCUE",
+      "processNames": [ "iCUE" ],
+      "executable": "%ProgramFiles%\\Corsair\\Corsair iCUE5 Software\\iCUE Launcher.exe",
+      "arguments": "--autorun",
+      "restartIfMissing": true
+    },
+    {
+      "id": "SignalRGB",
+      "processNames": [ "SignalRgb", "SignalRgbLauncher" ],
+      "executable": "%USERPROFILE%\\AppData\\Local\\VortxEngine\\SignalRgbLauncher.exe",
+      "arguments": "--silent",
+      "restartIfMissing": true
+    },
+    {
+      "id": "SteamSync",
+      "processNames": [ "python", "python3" ],
+      "commandLineContains": "steamsync.daemon",
+      "executable": "%USERPROFILE%\\.steamsync\\run-daemon.cmd",
+      "restartIfMissing": true
+    }
+  ],
+  "services": [
+    { "id": "Apollo", "serviceName": "ApolloService", "ensureRunning": true },
+    { "id": "DayNightLAN", "serviceName": "button_shutdown_daynight_listening", "ensureRunning": true },
+    { "id": "SignalRGB", "serviceName": "SignalRgb.Service", "ensureRunning": true },
+    { "id": "iCUE", "serviceName": "iCUEUpdateService", "ensureRunning": true },
+    { "id": "SteamClient", "serviceName": "Steam Client Service", "ensureRunning": true },
+    { "id": "Bitdefender.VSSERV", "serviceName": "VSSERV", "ensureRunning": true },
+    { "id": "Bitdefender.BDAppSrv", "serviceName": "BDAppSrv", "ensureRunning": true },
+    { "id": "Bitdefender.BDAuxSrv", "serviceName": "BDAuxSrv", "ensureRunning": true },
+    { "id": "Bitdefender.BDProtSrv", "serviceName": "BDProtSrv", "ensureRunning": true },
+    { "id": "Bitdefender.BDSafepaySrv", "serviceName": "BDSafepaySrv", "ensureRunning": true },
+    { "id": "Bitdefender.bdredline", "serviceName": "bdredline", "ensureRunning": true },
+    { "id": "Bitdefender.bdredline_agent", "serviceName": "bdredline_agent", "ensureRunning": true },
+    { "id": "Bitdefender.UPDATESRV", "serviceName": "UPDATESRV", "ensureRunning": true }
+  ]
+}

@@ -1,0 +1,189 @@
+<Window x:Class="SteamOsWin.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="SteamOS-Win"
+        Background="{StaticResource BackgroundBrush}"
+        Foreground="{StaticResource TextBrush}"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowState="Maximized"
+        WindowStartupLocation="Manual"
+        KeyDown="Window_KeyDown">
+    <Window.Resources>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="{StaticResource MutedTextBrush}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Padding" Value="20,14" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#182638" />
+                    <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="22,12" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#43B6FF" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="SecondaryButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource PanelRaisedBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="86" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="54" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="#10151F" BorderBrush="#202A3A" BorderThickness="0,0,0,1">
+            <Grid Margin="30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="STEAMOS-WIN" FontSize="23" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" />
+                    <TextBlock Text="Gaming Mode pour Windows + NVIDIA" FontSize="12" Foreground="{StaticResource MutedTextBrush}" Margin="2,3,0,0" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <StackPanel Margin="0,0,22,0">
+                        <TextBlock Text="ÉCRAN ACTIF" FontSize="10" Foreground="{StaticResource MutedTextBrush}" HorizontalAlignment="Right" />
+                        <ComboBox x:Name="DisplaySelector" Width="260" Height="32" Margin="0,5,0,0" SelectionChanged="DisplaySelector_SelectionChanged" />
+                    </StackPanel>
+                    <Border Background="#152334" Padding="12,8" CornerRadius="5">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="9" Height="9" Fill="#45D483" Margin="0,0,8,0" VerticalAlignment="Center" />
+                            <TextBlock Text="MODE PROTOTYPE" FontSize="12" Foreground="#A9EBC8" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="285" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="#0E131C" BorderBrush="#202A3A" BorderThickness="0,0,1,0">
+                <Grid Margin="18,28">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock Text="ACCUEIL" FontSize="11" Foreground="{StaticResource MutedTextBrush}" Margin="20,0,0,10" />
+                        <Button Content="Bibliothèque" Tag="library" Style="{StaticResource NavButtonStyle}" Click="Navigation_Click" />
+                        <Button Content="Jeux récents" Tag="recent" Style="{StaticResource NavButtonStyle}" Click="Navigation_Click" />
+                        <Button Content="Téléchargements" Tag="downloads" Style="{StaticResource NavButtonStyle}" Click="Navigation_Click" />
+                        <TextBlock Text="SYSTÈME" FontSize="11" Foreground="{StaticResource MutedTextBrush}" Margin="20,32,0,10" />
+                        <Button Content="Paramètres affichage" Tag="display" Style="{StaticResource NavButtonStyle}" Click="Navigation_Click" />
+                        <Button Content="Contrôleurs" Tag="controller" Style="{StaticResource NavButtonStyle}" Click="Navigation_Click" />
+                        <Button Content="Alimentation" Tag="power" Style="{StaticResource NavButtonStyle}" Click="Navigation_Click" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="1">
+                        <Border Background="#141D2A" CornerRadius="6" Padding="16" Margin="0,0,0,14">
+                            <StackPanel>
+                                <TextBlock Text="V1 RÉVERSIBLE" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}" />
+                                <TextBlock Text="Aucun réglage Windows critique n'est modifié." TextWrapping="Wrap" Foreground="{StaticResource MutedTextBrush}" FontSize="12" Margin="0,7,0,0" />
+                            </StackPanel>
+                        </Border>
+                        <Button Content="Lancer Steam" Style="{StaticResource ActionButtonStyle}" Click="LaunchSteam_Click" />
+                        <Button Content="Quitter le prototype" Style="{StaticResource SecondaryButtonStyle}" Margin="0,10,0,0" Click="Exit_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Grid Margin="44,42,44,42" MaxWidth="3000" HorizontalAlignment="Left">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <StackPanel>
+                        <TextBlock x:Name="PageTitle" Text="Bibliothèque" FontSize="38" FontWeight="SemiBold" />
+                        <TextBlock x:Name="PageSubtitle" Text="Une interface pensée pour jouer à la manette, sans étirer l'affichage." FontSize="16" Foreground="{StaticResource MutedTextBrush}" Margin="0,8,0,0" />
+                    </StackPanel>
+
+                    <Border Grid.Row="1" Background="#172232" CornerRadius="10" Margin="0,34,0,0" Padding="26">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel VerticalAlignment="Center">
+                                <TextBlock Text="PRÊT POUR LE 32:9" FontSize="13" Foreground="{StaticResource AccentBrush}" FontWeight="Bold" />
+                                <TextBlock Text="5120 × 1440" FontSize="30" FontWeight="SemiBold" Margin="0,8,0,0" />
+                                <TextBlock Text="La fenêtre occupe l'écran choisi sans Viewbox 16:9 ni mise à l'échelle forcée." FontSize="15" Foreground="{StaticResource MutedTextBrush}" Margin="0,8,0,0" />
+                            </StackPanel>
+                            <Border Grid.Column="1" Background="#0E151F" BorderBrush="#294563" BorderThickness="1" CornerRadius="7" Padding="18" Margin="36,0,0,0" MinWidth="290">
+                                <StackPanel>
+                                    <TextBlock Text="SESSION" FontSize="11" Foreground="{StaticResource MutedTextBrush}" />
+                                    <TextBlock x:Name="SessionText" Text="SteamOS-like UI" FontSize="18" Margin="0,6,0,0" />
+                                    <TextBlock x:Name="SteamPathText" Text="Steam : recherche..." TextWrapping="Wrap" FontSize="12" Foreground="{StaticResource MutedTextBrush}" Margin="0,12,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <StackPanel Grid.Row="2" Margin="0,34,0,0">
+                        <TextBlock Text="JEUX INSTALLÉS — APERÇU" FontSize="13" Foreground="{StaticResource MutedTextBrush}" />
+                        <UniformGrid Columns="4" Margin="0,14,0,0">
+                            <Border Background="#202E42" CornerRadius="8" Margin="0,0,14,0" Height="170" Padding="18">
+                                <StackPanel VerticalAlignment="Bottom">
+                                    <TextBlock Text="Cyberpunk 2077" FontSize="19" FontWeight="SemiBold" />
+                                    <TextBlock Text="Prêt à jouer" Foreground="#9CE8B9" Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#30273B" CornerRadius="8" Margin="0,0,14,0" Height="170" Padding="18">
+                                <StackPanel VerticalAlignment="Bottom">
+                                    <TextBlock Text="Elden Ring" FontSize="19" FontWeight="SemiBold" />
+                                    <TextBlock Text="Prêt à jouer" Foreground="#9CE8B9" Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#263A38" CornerRadius="8" Margin="0,0,14,0" Height="170" Padding="18">
+                                <StackPanel VerticalAlignment="Bottom">
+                                    <TextBlock Text="No Man's Sky" FontSize="19" FontWeight="SemiBold" />
+                                    <TextBlock Text="Prêt à jouer" Foreground="#9CE8B9" Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Border>
+                            <Border Background="#3C2D27" CornerRadius="8" Height="170" Padding="18">
+                                <StackPanel VerticalAlignment="Bottom">
+                                    <TextBlock Text="Ajouter un jeu" FontSize="19" FontWeight="SemiBold" />
+                                    <TextBlock Text="Depuis Steam" Foreground="{StaticResource MutedTextBrush}" Margin="0,6,0,0" />
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Border Grid.Row="2" Background="#10151F" BorderBrush="#202A3A" BorderThickness="0,1,0,0">
+            <Grid Margin="30,0">
+                <TextBlock Text="A / Entrer   B / Retour   Guide / Menu" VerticalAlignment="Center" Foreground="{StaticResource MutedTextBrush}" FontSize="12" />
+                <TextBlock x:Name="StatusText" Text="SteamOS-Win prêt" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="{StaticResource MutedTextBrush}" FontSize="12" />
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
+
